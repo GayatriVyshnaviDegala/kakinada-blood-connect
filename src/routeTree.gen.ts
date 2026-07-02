@@ -9,8 +9,80 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SearchDonorsRouteImport } from './routes/search-donors'
+import { Route as RecipientRegisterRouteImport } from './routes/recipient-register'
+import { Route as RecipientLoginRouteImport } from './routes/recipient-login'
+import { Route as HospitalsRouteImport } from './routes/hospitals'
+import { Route as EmergencyRouteImport } from './routes/emergency'
+import { Route as DonorRegisterRouteImport } from './routes/donor-register'
+import { Route as DonorLoginRouteImport } from './routes/donor-login'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AwarenessRouteImport } from './routes/awareness'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchDonorsRoute = SearchDonorsRouteImport.update({
+  id: '/search-donors',
+  path: '/search-donors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecipientRegisterRoute = RecipientRegisterRouteImport.update({
+  id: '/recipient-register',
+  path: '/recipient-register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecipientLoginRoute = RecipientLoginRouteImport.update({
+  id: '/recipient-login',
+  path: '/recipient-login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HospitalsRoute = HospitalsRouteImport.update({
+  id: '/hospitals',
+  path: '/hospitals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmergencyRoute = EmergencyRouteImport.update({
+  id: '/emergency',
+  path: '/emergency',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DonorRegisterRoute = DonorRegisterRouteImport.update({
+  id: '/donor-register',
+  path: '/donor-register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DonorLoginRoute = DonorLoginRouteImport.update({
+  id: '/donor-login',
+  path: '/donor-login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AwarenessRoute = AwarenessRouteImport.update({
+  id: '/awareness',
+  path: '/awareness',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +91,200 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
+  '/awareness': typeof AwarenessRoute
+  '/contact': typeof ContactRoute
+  '/donor-login': typeof DonorLoginRoute
+  '/donor-register': typeof DonorRegisterRoute
+  '/emergency': typeof EmergencyRoute
+  '/hospitals': typeof HospitalsRoute
+  '/recipient-login': typeof RecipientLoginRoute
+  '/recipient-register': typeof RecipientRegisterRoute
+  '/search-donors': typeof SearchDonorsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
+  '/awareness': typeof AwarenessRoute
+  '/contact': typeof ContactRoute
+  '/donor-login': typeof DonorLoginRoute
+  '/donor-register': typeof DonorRegisterRoute
+  '/emergency': typeof EmergencyRoute
+  '/hospitals': typeof HospitalsRoute
+  '/recipient-login': typeof RecipientLoginRoute
+  '/recipient-register': typeof RecipientRegisterRoute
+  '/search-donors': typeof SearchDonorsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
+  '/awareness': typeof AwarenessRoute
+  '/contact': typeof ContactRoute
+  '/donor-login': typeof DonorLoginRoute
+  '/donor-register': typeof DonorRegisterRoute
+  '/emergency': typeof EmergencyRoute
+  '/hospitals': typeof HospitalsRoute
+  '/recipient-login': typeof RecipientLoginRoute
+  '/recipient-register': typeof RecipientRegisterRoute
+  '/search-donors': typeof SearchDonorsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/awareness'
+    | '/contact'
+    | '/donor-login'
+    | '/donor-register'
+    | '/emergency'
+    | '/hospitals'
+    | '/recipient-login'
+    | '/recipient-register'
+    | '/search-donors'
+    | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/awareness'
+    | '/contact'
+    | '/donor-login'
+    | '/donor-register'
+    | '/emergency'
+    | '/hospitals'
+    | '/recipient-login'
+    | '/recipient-register'
+    | '/search-donors'
+    | '/sitemap.xml'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/awareness'
+    | '/contact'
+    | '/donor-login'
+    | '/donor-register'
+    | '/emergency'
+    | '/hospitals'
+    | '/recipient-login'
+    | '/recipient-register'
+    | '/search-donors'
+    | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRoute
+  AwarenessRoute: typeof AwarenessRoute
+  ContactRoute: typeof ContactRoute
+  DonorLoginRoute: typeof DonorLoginRoute
+  DonorRegisterRoute: typeof DonorRegisterRoute
+  EmergencyRoute: typeof EmergencyRoute
+  HospitalsRoute: typeof HospitalsRoute
+  RecipientLoginRoute: typeof RecipientLoginRoute
+  RecipientRegisterRoute: typeof RecipientRegisterRoute
+  SearchDonorsRoute: typeof SearchDonorsRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search-donors': {
+      id: '/search-donors'
+      path: '/search-donors'
+      fullPath: '/search-donors'
+      preLoaderRoute: typeof SearchDonorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recipient-register': {
+      id: '/recipient-register'
+      path: '/recipient-register'
+      fullPath: '/recipient-register'
+      preLoaderRoute: typeof RecipientRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recipient-login': {
+      id: '/recipient-login'
+      path: '/recipient-login'
+      fullPath: '/recipient-login'
+      preLoaderRoute: typeof RecipientLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hospitals': {
+      id: '/hospitals'
+      path: '/hospitals'
+      fullPath: '/hospitals'
+      preLoaderRoute: typeof HospitalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/emergency': {
+      id: '/emergency'
+      path: '/emergency'
+      fullPath: '/emergency'
+      preLoaderRoute: typeof EmergencyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/donor-register': {
+      id: '/donor-register'
+      path: '/donor-register'
+      fullPath: '/donor-register'
+      preLoaderRoute: typeof DonorRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/donor-login': {
+      id: '/donor-login'
+      path: '/donor-login'
+      fullPath: '/donor-login'
+      preLoaderRoute: typeof DonorLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/awareness': {
+      id: '/awareness'
+      path: '/awareness'
+      fullPath: '/awareness'
+      preLoaderRoute: typeof AwarenessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,17 +297,19 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AdminRoute: AdminRoute,
+  AwarenessRoute: AwarenessRoute,
+  ContactRoute: ContactRoute,
+  DonorLoginRoute: DonorLoginRoute,
+  DonorRegisterRoute: DonorRegisterRoute,
+  EmergencyRoute: EmergencyRoute,
+  HospitalsRoute: HospitalsRoute,
+  RecipientLoginRoute: RecipientLoginRoute,
+  RecipientRegisterRoute: RecipientRegisterRoute,
+  SearchDonorsRoute: SearchDonorsRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
