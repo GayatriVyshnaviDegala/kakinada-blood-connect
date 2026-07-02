@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SearchDonorsRouteImport } from './routes/search-donors'
 import { Route as RecipientRegisterRouteImport } from './routes/recipient-register'
 import { Route as RecipientLoginRouteImport } from './routes/recipient-login'
@@ -22,6 +23,11 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SearchDonorsRoute = SearchDonorsRouteImport.update({
   id: '/search-donors',
   path: '/search-donors',
@@ -96,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/recipient-login': typeof RecipientLoginRoute
   '/recipient-register': typeof RecipientRegisterRoute
   '/search-donors': typeof SearchDonorsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/recipient-login': typeof RecipientLoginRoute
   '/recipient-register': typeof RecipientRegisterRoute
   '/search-donors': typeof SearchDonorsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -125,6 +133,7 @@ export interface FileRoutesById {
   '/recipient-login': typeof RecipientLoginRoute
   '/recipient-register': typeof RecipientRegisterRoute
   '/search-donors': typeof SearchDonorsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -141,6 +150,7 @@ export interface FileRouteTypes {
     | '/recipient-login'
     | '/recipient-register'
     | '/search-donors'
+    | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -155,6 +165,7 @@ export interface FileRouteTypes {
     | '/recipient-login'
     | '/recipient-register'
     | '/search-donors'
+    | '/sitemap.xml'
   id:
     | '__root__'
     | '/'
@@ -169,6 +180,7 @@ export interface FileRouteTypes {
     | '/recipient-login'
     | '/recipient-register'
     | '/search-donors'
+    | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -184,10 +196,18 @@ export interface RootRouteChildren {
   RecipientLoginRoute: typeof RecipientLoginRoute
   RecipientRegisterRoute: typeof RecipientRegisterRoute
   SearchDonorsRoute: typeof SearchDonorsRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/search-donors': {
       id: '/search-donors'
       path: '/search-donors'
@@ -288,6 +308,7 @@ const rootRouteChildren: RootRouteChildren = {
   RecipientLoginRoute: RecipientLoginRoute,
   RecipientRegisterRoute: RecipientRegisterRoute,
   SearchDonorsRoute: SearchDonorsRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
