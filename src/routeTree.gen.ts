@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SearchDonorsRouteImport } from './routes/search-donors'
 import { Route as RecipientRegisterRouteImport } from './routes/recipient-register'
 import { Route as RecipientLoginRouteImport } from './routes/recipient-login'
+import { Route as HospitalsRouteImport } from './routes/hospitals'
 import { Route as EmergencyRouteImport } from './routes/emergency'
 import { Route as DonorRegisterRouteImport } from './routes/donor-register'
 import { Route as DonorLoginRouteImport } from './routes/donor-login'
@@ -31,6 +32,11 @@ const RecipientRegisterRoute = RecipientRegisterRouteImport.update({
 const RecipientLoginRoute = RecipientLoginRouteImport.update({
   id: '/recipient-login',
   path: '/recipient-login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HospitalsRoute = HospitalsRouteImport.update({
+  id: '/hospitals',
+  path: '/hospitals',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmergencyRoute = EmergencyRouteImport.update({
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/donor-login': typeof DonorLoginRoute
   '/donor-register': typeof DonorRegisterRoute
   '/emergency': typeof EmergencyRoute
+  '/hospitals': typeof HospitalsRoute
   '/recipient-login': typeof RecipientLoginRoute
   '/recipient-register': typeof RecipientRegisterRoute
   '/search-donors': typeof SearchDonorsRoute
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/donor-login': typeof DonorLoginRoute
   '/donor-register': typeof DonorRegisterRoute
   '/emergency': typeof EmergencyRoute
+  '/hospitals': typeof HospitalsRoute
   '/recipient-login': typeof RecipientLoginRoute
   '/recipient-register': typeof RecipientRegisterRoute
   '/search-donors': typeof SearchDonorsRoute
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/donor-login': typeof DonorLoginRoute
   '/donor-register': typeof DonorRegisterRoute
   '/emergency': typeof EmergencyRoute
+  '/hospitals': typeof HospitalsRoute
   '/recipient-login': typeof RecipientLoginRoute
   '/recipient-register': typeof RecipientRegisterRoute
   '/search-donors': typeof SearchDonorsRoute
@@ -98,6 +107,7 @@ export interface FileRouteTypes {
     | '/donor-login'
     | '/donor-register'
     | '/emergency'
+    | '/hospitals'
     | '/recipient-login'
     | '/recipient-register'
     | '/search-donors'
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/donor-login'
     | '/donor-register'
     | '/emergency'
+    | '/hospitals'
     | '/recipient-login'
     | '/recipient-register'
     | '/search-donors'
@@ -118,6 +129,7 @@ export interface FileRouteTypes {
     | '/donor-login'
     | '/donor-register'
     | '/emergency'
+    | '/hospitals'
     | '/recipient-login'
     | '/recipient-register'
     | '/search-donors'
@@ -129,6 +141,7 @@ export interface RootRouteChildren {
   DonorLoginRoute: typeof DonorLoginRoute
   DonorRegisterRoute: typeof DonorRegisterRoute
   EmergencyRoute: typeof EmergencyRoute
+  HospitalsRoute: typeof HospitalsRoute
   RecipientLoginRoute: typeof RecipientLoginRoute
   RecipientRegisterRoute: typeof RecipientRegisterRoute
   SearchDonorsRoute: typeof SearchDonorsRoute
@@ -155,6 +168,13 @@ declare module '@tanstack/react-router' {
       path: '/recipient-login'
       fullPath: '/recipient-login'
       preLoaderRoute: typeof RecipientLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hospitals': {
+      id: '/hospitals'
+      path: '/hospitals'
+      fullPath: '/hospitals'
+      preLoaderRoute: typeof HospitalsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/emergency': {
@@ -201,6 +221,7 @@ const rootRouteChildren: RootRouteChildren = {
   DonorLoginRoute: DonorLoginRoute,
   DonorRegisterRoute: DonorRegisterRoute,
   EmergencyRoute: EmergencyRoute,
+  HospitalsRoute: HospitalsRoute,
   RecipientLoginRoute: RecipientLoginRoute,
   RecipientRegisterRoute: RecipientRegisterRoute,
   SearchDonorsRoute: SearchDonorsRoute,
