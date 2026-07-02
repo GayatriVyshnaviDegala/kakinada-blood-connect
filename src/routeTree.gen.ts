@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as DonorRegisterRouteImport } from './routes/donor-register'
+import { Route as DonorLoginRouteImport } from './routes/donor-login'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
 const DonorRegisterRoute = DonorRegisterRouteImport.update({
   id: '/donor-register',
   path: '/donor-register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DonorLoginRoute = DonorLoginRouteImport.update({
+  id: '/donor-login',
+  path: '/donor-login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -32,30 +38,34 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/donor-login': typeof DonorLoginRoute
   '/donor-register': typeof DonorRegisterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/donor-login': typeof DonorLoginRoute
   '/donor-register': typeof DonorRegisterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/donor-login': typeof DonorLoginRoute
   '/donor-register': typeof DonorRegisterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/donor-register'
+  fullPaths: '/' | '/about' | '/donor-login' | '/donor-register'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/donor-register'
-  id: '__root__' | '/' | '/about' | '/donor-register'
+  to: '/' | '/about' | '/donor-login' | '/donor-register'
+  id: '__root__' | '/' | '/about' | '/donor-login' | '/donor-register'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  DonorLoginRoute: typeof DonorLoginRoute
   DonorRegisterRoute: typeof DonorRegisterRoute
 }
 
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/donor-register'
       fullPath: '/donor-register'
       preLoaderRoute: typeof DonorRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/donor-login': {
+      id: '/donor-login'
+      path: '/donor-login'
+      fullPath: '/donor-login'
+      preLoaderRoute: typeof DonorLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  DonorLoginRoute: DonorLoginRoute,
   DonorRegisterRoute: DonorRegisterRoute,
 }
 export const routeTree = rootRouteImport
