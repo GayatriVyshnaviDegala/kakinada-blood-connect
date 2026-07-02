@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RecipientRegisterRouteImport } from './routes/recipient-register'
 import { Route as DonorRegisterRouteImport } from './routes/donor-register'
 import { Route as DonorLoginRouteImport } from './routes/donor-login'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const RecipientRegisterRoute = RecipientRegisterRouteImport.update({
+  id: '/recipient-register',
+  path: '/recipient-register',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DonorRegisterRoute = DonorRegisterRouteImport.update({
   id: '/donor-register',
   path: '/donor-register',
@@ -40,12 +46,14 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/donor-login': typeof DonorLoginRoute
   '/donor-register': typeof DonorRegisterRoute
+  '/recipient-register': typeof RecipientRegisterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/donor-login': typeof DonorLoginRoute
   '/donor-register': typeof DonorRegisterRoute
+  '/recipient-register': typeof RecipientRegisterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,30 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/donor-login': typeof DonorLoginRoute
   '/donor-register': typeof DonorRegisterRoute
+  '/recipient-register': typeof RecipientRegisterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/donor-login' | '/donor-register'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/donor-login'
+    | '/donor-register'
+    | '/recipient-register'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/donor-login' | '/donor-register'
-  id: '__root__' | '/' | '/about' | '/donor-login' | '/donor-register'
+  to:
+    | '/'
+    | '/about'
+    | '/donor-login'
+    | '/donor-register'
+    | '/recipient-register'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/donor-login'
+    | '/donor-register'
+    | '/recipient-register'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,10 +92,18 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   DonorLoginRoute: typeof DonorLoginRoute
   DonorRegisterRoute: typeof DonorRegisterRoute
+  RecipientRegisterRoute: typeof RecipientRegisterRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/recipient-register': {
+      id: '/recipient-register'
+      path: '/recipient-register'
+      fullPath: '/recipient-register'
+      preLoaderRoute: typeof RecipientRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/donor-register': {
       id: '/donor-register'
       path: '/donor-register'
@@ -107,6 +140,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   DonorLoginRoute: DonorLoginRoute,
   DonorRegisterRoute: DonorRegisterRoute,
+  RecipientRegisterRoute: RecipientRegisterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
