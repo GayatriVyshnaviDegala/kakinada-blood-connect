@@ -16,6 +16,7 @@ import { Route as HospitalsRouteImport } from './routes/hospitals'
 import { Route as EmergencyRouteImport } from './routes/emergency'
 import { Route as DonorRegisterRouteImport } from './routes/donor-register'
 import { Route as DonorLoginRouteImport } from './routes/donor-login'
+import { Route as AwarenessRouteImport } from './routes/awareness'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -54,6 +55,11 @@ const DonorLoginRoute = DonorLoginRouteImport.update({
   path: '/donor-login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AwarenessRoute = AwarenessRouteImport.update({
+  id: '/awareness',
+  path: '/awareness',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -68,6 +74,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/awareness': typeof AwarenessRoute
   '/donor-login': typeof DonorLoginRoute
   '/donor-register': typeof DonorRegisterRoute
   '/emergency': typeof EmergencyRoute
@@ -79,6 +86,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/awareness': typeof AwarenessRoute
   '/donor-login': typeof DonorLoginRoute
   '/donor-register': typeof DonorRegisterRoute
   '/emergency': typeof EmergencyRoute
@@ -91,6 +99,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/awareness': typeof AwarenessRoute
   '/donor-login': typeof DonorLoginRoute
   '/donor-register': typeof DonorRegisterRoute
   '/emergency': typeof EmergencyRoute
@@ -104,6 +113,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/awareness'
     | '/donor-login'
     | '/donor-register'
     | '/emergency'
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/awareness'
     | '/donor-login'
     | '/donor-register'
     | '/emergency'
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/awareness'
     | '/donor-login'
     | '/donor-register'
     | '/emergency'
@@ -138,6 +150,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AwarenessRoute: typeof AwarenessRoute
   DonorLoginRoute: typeof DonorLoginRoute
   DonorRegisterRoute: typeof DonorRegisterRoute
   EmergencyRoute: typeof EmergencyRoute
@@ -198,6 +211,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DonorLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/awareness': {
+      id: '/awareness'
+      path: '/awareness'
+      fullPath: '/awareness'
+      preLoaderRoute: typeof AwarenessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -218,6 +238,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AwarenessRoute: AwarenessRoute,
   DonorLoginRoute: DonorLoginRoute,
   DonorRegisterRoute: DonorRegisterRoute,
   EmergencyRoute: EmergencyRoute,
