@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RecipientRegisterRouteImport } from './routes/recipient-register'
+import { Route as RecipientLoginRouteImport } from './routes/recipient-login'
 import { Route as DonorRegisterRouteImport } from './routes/donor-register'
 import { Route as DonorLoginRouteImport } from './routes/donor-login'
 import { Route as AboutRouteImport } from './routes/about'
@@ -18,6 +19,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const RecipientRegisterRoute = RecipientRegisterRouteImport.update({
   id: '/recipient-register',
   path: '/recipient-register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecipientLoginRoute = RecipientLoginRouteImport.update({
+  id: '/recipient-login',
+  path: '/recipient-login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DonorRegisterRoute = DonorRegisterRouteImport.update({
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/donor-login': typeof DonorLoginRoute
   '/donor-register': typeof DonorRegisterRoute
+  '/recipient-login': typeof RecipientLoginRoute
   '/recipient-register': typeof RecipientRegisterRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/donor-login': typeof DonorLoginRoute
   '/donor-register': typeof DonorRegisterRoute
+  '/recipient-login': typeof RecipientLoginRoute
   '/recipient-register': typeof RecipientRegisterRoute
 }
 export interface FileRoutesById {
@@ -61,6 +69,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/donor-login': typeof DonorLoginRoute
   '/donor-register': typeof DonorRegisterRoute
+  '/recipient-login': typeof RecipientLoginRoute
   '/recipient-register': typeof RecipientRegisterRoute
 }
 export interface FileRouteTypes {
@@ -70,6 +79,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/donor-login'
     | '/donor-register'
+    | '/recipient-login'
     | '/recipient-register'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -77,6 +87,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/donor-login'
     | '/donor-register'
+    | '/recipient-login'
     | '/recipient-register'
   id:
     | '__root__'
@@ -84,6 +95,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/donor-login'
     | '/donor-register'
+    | '/recipient-login'
     | '/recipient-register'
   fileRoutesById: FileRoutesById
 }
@@ -92,6 +104,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   DonorLoginRoute: typeof DonorLoginRoute
   DonorRegisterRoute: typeof DonorRegisterRoute
+  RecipientLoginRoute: typeof RecipientLoginRoute
   RecipientRegisterRoute: typeof RecipientRegisterRoute
 }
 
@@ -102,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/recipient-register'
       fullPath: '/recipient-register'
       preLoaderRoute: typeof RecipientRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recipient-login': {
+      id: '/recipient-login'
+      path: '/recipient-login'
+      fullPath: '/recipient-login'
+      preLoaderRoute: typeof RecipientLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/donor-register': {
@@ -140,6 +160,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   DonorLoginRoute: DonorLoginRoute,
   DonorRegisterRoute: DonorRegisterRoute,
+  RecipientLoginRoute: RecipientLoginRoute,
   RecipientRegisterRoute: RecipientRegisterRoute,
 }
 export const routeTree = rootRouteImport
