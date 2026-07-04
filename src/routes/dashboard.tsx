@@ -210,8 +210,8 @@ function DonorDashboard() {
   );
 }
 
-function Card({ children }: { children: React.ReactNode }) {
-  return <div className="bg-[#160a0b] border border-white/10 rounded-2xl p-5">{children}</div>;
+function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return <div className={`bg-[#160a0b] border border-white/10 rounded-2xl p-5 ${className}`}>{children}</div>;
 }
 
 function CardHeader({ title, sub, badge }: { title: string; sub?: string; badge?: string }) {
