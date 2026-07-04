@@ -62,6 +62,7 @@ export function Layout({ children }: { children: ReactNode }) {
             ))}
           </nav>
           <div className="hidden lg:flex items-center gap-2">
+            <ThemeToggle />
             <Link to="/donor-login" className="px-3 py-2 text-sm font-medium text-primary hover:underline">
               Donor Login
             </Link>
