@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
 import { useEffect, useState } from "react";
 import { Droplet, HeartHandshake, Search, Siren, MapPin, Users, Activity, Award } from "lucide-react";
-import { SUCCESS_STORIES, BLOOD_GROUPS, type BloodRequest } from "@/lib/blood-data";
+import { BLOOD_GROUPS, type BloodRequest } from "@/lib/blood-data";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
