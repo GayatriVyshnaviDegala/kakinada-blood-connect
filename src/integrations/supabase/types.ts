@@ -14,7 +14,162 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      blood_requests: {
+        Row: {
+          area: string
+          blood_group: string
+          contact: string
+          hospital: string
+          id: string
+          note: string | null
+          patient_name: string
+          posted_at: string
+          status: string
+          units: number
+          urgency: string
+        }
+        Insert: {
+          area: string
+          blood_group: string
+          contact: string
+          hospital: string
+          id?: string
+          note?: string | null
+          patient_name: string
+          posted_at?: string
+          status?: string
+          units: number
+          urgency: string
+        }
+        Update: {
+          area?: string
+          blood_group?: string
+          contact?: string
+          hospital?: string
+          id?: string
+          note?: string | null
+          patient_name?: string
+          posted_at?: string
+          status?: string
+          units?: number
+          urgency?: string
+        }
+        Relationships: []
+      }
+      donors: {
+        Row: {
+          address: string | null
+          age: number
+          area: string
+          available: boolean
+          blood_group: string
+          created_at: string
+          donations: number
+          email: string
+          gender: string
+          id: string
+          last_donation: string | null
+          name: string
+          password: string
+          phone: string
+        }
+        Insert: {
+          address?: string | null
+          age: number
+          area: string
+          available?: boolean
+          blood_group: string
+          created_at?: string
+          donations?: number
+          email: string
+          gender: string
+          id?: string
+          last_donation?: string | null
+          name: string
+          password: string
+          phone: string
+        }
+        Update: {
+          address?: string | null
+          age?: number
+          area?: string
+          available?: boolean
+          blood_group?: string
+          created_at?: string
+          donations?: number
+          email?: string
+          gender?: string
+          id?: string
+          last_donation?: string | null
+          name?: string
+          password?: string
+          phone?: string
+        }
+        Relationships: []
+      }
+      hospitals: {
+        Row: {
+          address: string
+          id: string
+          name: string
+          phone: string
+          stock: Json
+          type: string
+        }
+        Insert: {
+          address: string
+          id?: string
+          name: string
+          phone: string
+          stock?: Json
+          type: string
+        }
+        Update: {
+          address?: string
+          id?: string
+          name?: string
+          phone?: string
+          stock?: Json
+          type?: string
+        }
+        Relationships: []
+      }
+      recipients: {
+        Row: {
+          area: string
+          blood_group: string
+          created_at: string
+          email: string
+          hospital: string | null
+          id: string
+          name: string
+          password: string
+          phone: string
+        }
+        Insert: {
+          area: string
+          blood_group: string
+          created_at?: string
+          email: string
+          hospital?: string | null
+          id?: string
+          name: string
+          password: string
+          phone: string
+        }
+        Update: {
+          area?: string
+          blood_group?: string
+          created_at?: string
+          email?: string
+          hospital?: string | null
+          id?: string
+          name?: string
+          password?: string
+          phone?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
