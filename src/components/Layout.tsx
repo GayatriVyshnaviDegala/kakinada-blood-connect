@@ -81,7 +81,7 @@ export function Layout({ children }: { children: ReactNode }) {
           </div>
         </div>
         {open && (
-          <div className="lg:hidden border-t border-border bg-white">
+          <div className="lg:hidden border-t border-border bg-background">
             <div className="px-4 py-3 flex flex-col gap-1">
               {NAV.map((n) => (
                 <Link key={n.to} to={n.to} className="py-2 text-sm font-medium" onClick={() => setOpen(false)}>
