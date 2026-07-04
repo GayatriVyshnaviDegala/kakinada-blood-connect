@@ -38,7 +38,7 @@ export function Layout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-border">
+      <header className="sticky top-0 z-40 bg-background/95 backdrop-blur border-b border-border">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <div className="w-9 h-9 rounded-md bg-primary text-primary-foreground grid place-items-center shadow">
@@ -81,7 +81,7 @@ export function Layout({ children }: { children: ReactNode }) {
           </div>
         </div>
         {open && (
-          <div className="lg:hidden border-t border-border bg-white">
+          <div className="lg:hidden border-t border-border bg-background">
             <div className="px-4 py-3 flex flex-col gap-1">
               {NAV.map((n) => (
                 <Link key={n.to} to={n.to} className="py-2 text-sm font-medium" onClick={() => setOpen(false)}>
