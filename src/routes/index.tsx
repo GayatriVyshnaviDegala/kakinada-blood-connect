@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
+import { useEffect, useState } from "react";
 import { Droplet, HeartHandshake, Search, Siren, MapPin, Users, Activity, Award } from "lucide-react";
-import { generateDonors, HOSPITALS, EMERGENCY_REQUESTS, SUCCESS_STORIES, BLOOD_GROUPS } from "@/lib/blood-data";
+import { SUCCESS_STORIES, BLOOD_GROUPS, type BloodRequest } from "@/lib/blood-data";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -16,15 +18,39 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
+function timeAgo(iso: string) {
+  const diff = Date.now() - new Date(iso).getTime();
+  const m = Math.floor(diff / 60000);
+  if (m < 60) return `${Math.max(m, 1)}m ago`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h}h ago`;
+  return `${Math.floor(h / 24)}d ago`;
+}
+
 function Home() {
-  const donors = generateDonors();
-  const available = donors.filter((d) => d.available).length;
-  const groupCounts = BLOOD_GROUPS.map((g) => ({ g, n: donors.filter((d) => d.bloodGroup === g).length }));
-  const max = Math.max(...groupCounts.map((c) => c.n));
+  const [stats, setStats] = useState({ donors: 0, available: 0, hospitals: 0 });
+  const [groupCounts, setGroupCounts] = useState<{ g: string; n: number }[]>(BLOOD_GROUPS.map((g) => ({ g, n: 0 })));
+  const [recentReq, setRecentReq] = useState<BloodRequest | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      const [donorsRes, availRes, hospRes, reqRes] = await Promise.all([
+        supabase.from("donors").select("blood_group"),
+        supabase.from("donors").select("id", { count: "exact", head: true }).eq("available", true),
+        supabase.from("hospitals").select("id", { count: "exact", head: true }),
+        supabase.from("blood_requests").select("*").eq("status", "OPEN").order("posted_at", { ascending: false }).limit(1).maybeSingle(),
+      ]);
+      const rows = donorsRes.data ?? [];
+      setStats({ donors: rows.length, available: availRes.count ?? 0, hospitals: hospRes.count ?? 0 });
+      setGroupCounts(BLOOD_GROUPS.map((g) => ({ g, n: rows.filter((r: any) => r.blood_group === g).length })));
+      if (reqRes.data) setRecentReq(reqRes.data as BloodRequest);
+    })();
+  }, []);
+
+  const max = Math.max(1, ...groupCounts.map((c) => c.n));
 
   return (
     <Layout>
-      {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#fff6f4] to-[#fff2e6]">
         <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute -bottom-32 -left-24 w-96 h-96 rounded-full bg-gold/20 blur-3xl" />
@@ -52,9 +78,9 @@ function Home() {
               </Link>
             </div>
             <div className="mt-10 grid grid-cols-3 gap-4 max-w-md">
-              <Stat n={donors.length} l="Donors" />
-              <Stat n={available} l="Available" />
-              <Stat n={HOSPITALS.length} l="Hospitals" />
+              <Stat n={stats.donors} l="Donors" />
+              <Stat n={stats.available} l="Available" />
+              <Stat n={stats.hospitals} l="Hospitals" />
             </div>
           </div>
 
@@ -75,25 +101,24 @@ function Home() {
                   </div>
                 ))}
               </div>
-              <div className="mt-5 pt-5 border-t border-border">
-                <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Recent Emergency</div>
-                {EMERGENCY_REQUESTS.slice(0, 1).map((r) => (
-                  <div key={r.id} className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 text-primary grid place-items-center font-bold">{r.bloodGroup}</div>
+              {recentReq && (
+                <div className="mt-5 pt-5 border-t border-border">
+                  <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Recent Emergency</div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 text-primary grid place-items-center font-bold">{recentReq.blood_group}</div>
                     <div className="flex-1">
-                      <div className="font-semibold text-sm">{r.units} unit(s) needed · {r.hospital.split(",")[0]}</div>
-                      <div className="text-xs text-muted-foreground">{r.area}, Kakinada · {r.posted}</div>
+                      <div className="font-semibold text-sm">{recentReq.units} unit(s) needed · {recentReq.hospital.split(",")[0]}</div>
+                      <div className="text-xs text-muted-foreground">{recentReq.area}, Kakinada · {timeAgo(recentReq.posted_at)}</div>
                     </div>
                     <Link to="/emergency" className="text-xs font-semibold text-primary hover:underline">View</Link>
                   </div>
-                ))}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Features */}
       <section className="max-w-7xl mx-auto px-4 py-20">
         <SectionHead eyebrow="What we do" title="A complete blood donor platform for Kakinada" />
         <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -114,7 +139,6 @@ function Home() {
         </div>
       </section>
 
-      {/* Areas */}
       <section className="bg-gradient-to-br from-[#fff8f0] to-white py-20">
         <div className="max-w-7xl mx-auto px-4">
           <SectionHead eyebrow="Kakinada coverage" title="Serving every neighbourhood of Kakinada" />
@@ -129,7 +153,6 @@ function Home() {
         </div>
       </section>
 
-      {/* Stories */}
       <section className="max-w-7xl mx-auto px-4 py-20">
         <SectionHead eyebrow="Success stories" title="Real lives saved in Kakinada" />
         <div className="mt-10 grid md:grid-cols-3 gap-6">
@@ -146,7 +169,6 @@ function Home() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="bg-primary text-primary-foreground">
         <div className="max-w-5xl mx-auto px-4 py-16 text-center">
           <Users className="w-10 h-10 mx-auto mb-4 text-gold" />

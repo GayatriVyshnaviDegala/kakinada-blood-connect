@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
-import { useMemo } from "react";
-import { generateDonors, BLOOD_GROUPS, KAKINADA_AREAS, EMERGENCY_REQUESTS, HOSPITALS } from "@/lib/blood-data";
+import { useEffect, useState } from "react";
+import { BLOOD_GROUPS, KAKINADA_AREAS, type Donor, type BloodRequest } from "@/lib/blood-data";
+import { supabase } from "@/integrations/supabase/client";
 import { Users, Droplet, Siren, Building2, TrendingUp } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
@@ -10,14 +11,33 @@ export const Route = createFileRoute("/admin")({
 });
 
 function Admin() {
-  const donors = useMemo(() => generateDonors(), []);
+  const [donors, setDonors] = useState<Donor[]>([]);
+  const [requests, setRequests] = useState<BloodRequest[]>([]);
+  const [hospitalCount, setHospitalCount] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const [dRes, rRes, hRes] = await Promise.all([
+        supabase.from("donors").select("*"),
+        supabase.from("blood_requests").select("*"),
+        supabase.from("hospitals").select("id", { count: "exact", head: true }),
+      ]);
+      setDonors((dRes.data ?? []) as Donor[]);
+      setRequests((rRes.data ?? []) as BloodRequest[]);
+      setHospitalCount(hRes.count ?? 0);
+      setLoading(false);
+    })();
+  }, []);
+
   const available = donors.filter((d) => d.available).length;
-  const groupCounts = BLOOD_GROUPS.map((g) => ({ g, n: donors.filter((d) => d.bloodGroup === g).length }));
+  const openReq = requests.filter((r) => r.status === "OPEN").length;
+  const groupCounts = BLOOD_GROUPS.map((g) => ({ g, n: donors.filter((d) => d.blood_group === g).length }));
   const areaCounts = KAKINADA_AREAS.map((a) => ({ a, n: donors.filter((d) => d.area === a).length }));
-  const maxG = Math.max(...groupCounts.map((c) => c.n));
-  const maxA = Math.max(...areaCounts.map((c) => c.n));
+  const maxG = Math.max(1, ...groupCounts.map((c) => c.n));
+  const maxA = Math.max(1, ...areaCounts.map((c) => c.n));
   const totalDonations = donors.reduce((s, d) => s + d.donations, 0);
-  const recent = [...donors].sort((a, b) => (a.lastDonation < b.lastDonation ? 1 : -1)).slice(0, 8);
+  const recent = [...donors].sort((a, b) => ((a.last_donation ?? "") < (b.last_donation ?? "") ? 1 : -1)).slice(0, 8);
 
   return (
     <Layout>
@@ -27,11 +47,11 @@ function Admin() {
             <div>
               <div className="text-xs uppercase tracking-[0.2em] text-gold font-semibold">Admin</div>
               <h1 className="mt-1 text-3xl md:text-4xl font-bold">Kakinada Dashboard</h1>
-              <p className="text-white/70 text-sm">Live overview of donors, requests and hospital stock across Kakinada.</p>
+              <p className="text-white/70 text-sm">Live overview of donors, requests and hospitals from the Lovable Cloud database.</p>
             </div>
             <div className="flex gap-2 text-xs">
               <span className="px-3 py-1.5 bg-white/10 rounded-full">Region: Kakinada</span>
-              <span className="px-3 py-1.5 bg-gold/20 text-gold rounded-full">Live</span>
+              <span className="px-3 py-1.5 bg-gold/20 text-gold rounded-full">{loading ? "Loading…" : "Live"}</span>
             </div>
           </div>
         </div>
@@ -40,8 +60,8 @@ function Admin() {
       <section className="max-w-7xl mx-auto px-4 -mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
         <KPI icon={Users} label="Total Donors" value={donors.length} tint="primary" />
         <KPI icon={Droplet} label="Available Now" value={available} tint="green" />
-        <KPI icon={Siren} label="Emergency Requests" value={EMERGENCY_REQUESTS.length} tint="gold" />
-        <KPI icon={Building2} label="Partner Hospitals" value={HOSPITALS.length} tint="primary" />
+        <KPI icon={Siren} label="Open Requests" value={openReq} tint="gold" />
+        <KPI icon={Building2} label="Partner Hospitals" value={hospitalCount} tint="primary" />
       </section>
 
       <section className="max-w-7xl mx-auto px-4 py-10 grid lg:grid-cols-2 gap-6">
@@ -83,9 +103,9 @@ function Admin() {
                 {recent.map((d) => (
                   <tr key={d.id} className="border-b border-border/60">
                     <td className="py-2 font-medium">{d.name}</td>
-                    <td className="text-primary font-semibold">{d.bloodGroup}</td>
+                    <td className="text-primary font-semibold">{d.blood_group}</td>
                     <td>{d.area}</td>
-                    <td className="text-muted-foreground">{d.lastDonation}</td>
+                    <td className="text-muted-foreground">{d.last_donation ?? "—"}</td>
                     <td className="text-right font-semibold">{d.donations}</td>
                   </tr>
                 ))}
@@ -96,10 +116,10 @@ function Admin() {
         <Card title="Activity">
           <div className="space-y-4">
             <Row label="Total donations logged" value={totalDonations} />
-            <Row label="Avg donations/donor" value={(totalDonations / donors.length).toFixed(1)} />
+            <Row label="Avg donations/donor" value={donors.length ? (totalDonations / donors.length).toFixed(1) : "0"} />
             <Row label="Areas covered" value={KAKINADA_AREAS.length} />
             <Row label="Blood groups tracked" value={BLOOD_GROUPS.length} />
-            <div className="pt-3 mt-3 border-t border-border flex items-center gap-2 text-sm text-green-700"><TrendingUp className="w-4 h-4" /> Kakinada donor base growing steadily.</div>
+            <div className="pt-3 mt-3 border-t border-border flex items-center gap-2 text-sm text-green-700"><TrendingUp className="w-4 h-4" /> Kakinada donor base backed by real database.</div>
           </div>
         </Card>
       </section>
