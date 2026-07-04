@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
-import { useState } from "react";
-import { KAKINADA_AREAS, BLOOD_GROUPS, HOSPITALS } from "@/lib/blood-data";
+import { useEffect, useState } from "react";
+import { KAKINADA_AREAS, BLOOD_GROUPS } from "@/lib/blood-data";
 import { Field, Select } from "./donor-register";
 import { CheckCircle2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/recipient-register")({
   head: () => ({ meta: [{ title: "Recipient Registration — Kakinada Blood Link" }] }),
@@ -12,14 +13,38 @@ export const Route = createFileRoute("/recipient-register")({
 
 function RecipientRegister() {
   const [done, setDone] = useState(false);
+  const [err, setErr] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [hospitals, setHospitals] = useState<string[]>([]);
   const [f, setF] = useState({ name: "", email: "", phone: "", bloodGroup: "", area: "", hospital: "", password: "" });
-  function submit(e: React.FormEvent) {
+
+  useEffect(() => {
+    supabase.from("hospitals").select("name").order("name").then(({ data }) => {
+      setHospitals((data ?? []).map((h) => h.name));
+    });
+  }, []);
+
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
-    const list = JSON.parse(localStorage.getItem("kbl_recipients") || "[]");
-    list.push({ ...f, id: Date.now() });
-    localStorage.setItem("kbl_recipients", JSON.stringify(list));
+    setErr("");
+    setLoading(true);
+    const { error } = await supabase.from("recipients").insert({
+      name: f.name,
+      email: f.email.toLowerCase().trim(),
+      password: f.password,
+      phone: f.phone,
+      blood_group: f.bloodGroup,
+      area: f.area,
+      hospital: f.hospital,
+    });
+    setLoading(false);
+    if (error) {
+      setErr(error.code === "23505" ? "This email is already registered." : error.message);
+      return;
+    }
     setDone(true);
   }
+
   if (done)
     return (
       <Layout>
@@ -46,9 +71,12 @@ function RecipientRegister() {
           <Field label="Phone (+91)" value={f.phone} onChange={(v) => setF({ ...f, phone: v })} required />
           <Select label="Required Blood Group" value={f.bloodGroup} onChange={(v) => setF({ ...f, bloodGroup: v })} options={BLOOD_GROUPS} required />
           <Select label="Area in Kakinada" value={f.area} onChange={(v) => setF({ ...f, area: v })} options={KAKINADA_AREAS} required />
-          <Select label="Preferred Hospital" value={f.hospital} onChange={(v) => setF({ ...f, hospital: v })} options={HOSPITALS.map((h) => h.name)} required />
+          <Select label="Preferred Hospital" value={f.hospital} onChange={(v) => setF({ ...f, hospital: v })} options={hospitals} required />
           <Field label="Password" type="password" value={f.password} onChange={(v) => setF({ ...f, password: v })} required />
-          <button className="md:col-span-2 mt-2 py-3 bg-primary text-primary-foreground rounded-md font-semibold">Register as Recipient</button>
+          {err && <div className="md:col-span-2 text-sm text-primary bg-primary/5 border border-primary/20 rounded-md p-3">{err}</div>}
+          <button disabled={loading} className="md:col-span-2 mt-2 py-3 bg-primary text-primary-foreground rounded-md font-semibold disabled:opacity-60">
+            {loading ? "Registering…" : "Register as Recipient"}
+          </button>
         </form>
       </div>
     </Layout>

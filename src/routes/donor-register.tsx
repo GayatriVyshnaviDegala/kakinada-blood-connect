@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
 import { useState } from "react";
 import { KAKINADA_AREAS, BLOOD_GROUPS } from "@/lib/blood-data";
+import { supabase } from "@/integrations/supabase/client";
 import { CheckCircle2 } from "lucide-react";
 
 export const Route = createFileRoute("/donor-register")({
@@ -11,13 +12,30 @@ export const Route = createFileRoute("/donor-register")({
 
 function DonorRegister() {
   const [done, setDone] = useState(false);
+  const [err, setErr] = useState("");
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", phone: "", age: "", gender: "Male", bloodGroup: "", area: "", address: "", password: "" });
 
-  function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
-    const list = JSON.parse(localStorage.getItem("kbl_donors") || "[]");
-    list.push({ ...form, id: Date.now(), registered: new Date().toISOString(), available: true });
-    localStorage.setItem("kbl_donors", JSON.stringify(list));
+    setErr("");
+    setLoading(true);
+    const { error } = await supabase.from("donors").insert({
+      name: form.name,
+      email: form.email.toLowerCase().trim(),
+      password: form.password,
+      phone: form.phone,
+      gender: form.gender,
+      age: Number(form.age),
+      blood_group: form.bloodGroup,
+      area: form.area,
+      address: form.address,
+    });
+    setLoading(false);
+    if (error) {
+      setErr(error.code === "23505" ? "This email is already registered." : error.message);
+      return;
+    }
     setDone(true);
   }
 
@@ -59,7 +77,10 @@ function DonorRegister() {
             <input type="checkbox" required className="mt-1 accent-primary" />
             <span>I confirm I am a resident of Kakinada, above 18 years and medically fit to donate blood.</span>
           </div>
-          <button className="md:col-span-2 mt-2 py-3 bg-primary text-primary-foreground rounded-md font-semibold hover:bg-primary/90">Register as Donor</button>
+          {err && <div className="md:col-span-2 text-sm text-primary bg-primary/5 border border-primary/20 rounded-md p-3">{err}</div>}
+          <button disabled={loading} className="md:col-span-2 mt-2 py-3 bg-primary text-primary-foreground rounded-md font-semibold hover:bg-primary/90 disabled:opacity-60">
+            {loading ? "Registering…" : "Register as Donor"}
+          </button>
         </form>
       </div>
     </Layout>

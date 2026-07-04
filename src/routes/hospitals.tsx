@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
-import { HOSPITALS, BLOOD_GROUPS } from "@/lib/blood-data";
+import { useEffect, useState } from "react";
+import { BLOOD_GROUPS, type Hospital } from "@/lib/blood-data";
+import { supabase } from "@/integrations/supabase/client";
 import { Building2, MapPin, Phone } from "lucide-react";
 
 export const Route = createFileRoute("/hospitals")({
@@ -9,20 +11,26 @@ export const Route = createFileRoute("/hospitals")({
 });
 
 function Hospitals() {
+  const [hospitals, setHospitals] = useState<Hospital[]>([]);
+  useEffect(() => {
+    supabase.from("hospitals").select("*").order("name").then(({ data }) => setHospitals((data ?? []) as Hospital[]));
+  }, []);
+
   return (
     <Layout>
       <section className="bg-gradient-to-br from-[#fff6f4] to-white py-12">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <div className="text-xs uppercase tracking-[0.2em] text-gold-foreground font-semibold">Kakinada network</div>
           <h1 className="mt-2 text-4xl font-bold">Partner hospitals in <span className="text-primary">Kakinada</span></h1>
-          <p className="mt-2 text-muted-foreground">Blood banks and stock levels across the city.</p>
+          <p className="mt-2 text-muted-foreground">Blood banks and live stock levels across the city.</p>
         </div>
       </section>
       <section className="max-w-6xl mx-auto px-4 py-10 space-y-5">
-        {HOSPITALS.map((h) => {
-          const total = Object.values(h.stock).reduce((a, b) => a + b, 0);
+        {hospitals.map((h) => {
+          const stock = h.stock || {};
+          const total = BLOOD_GROUPS.reduce((s, g) => s + (Number(stock[g]) || 0), 0);
           return (
-            <div key={h.name} className="bg-white border border-border rounded-xl p-6">
+            <div key={h.id} className="bg-white border border-border rounded-xl p-6">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-2">
@@ -42,13 +50,14 @@ function Hospitals() {
                 {BLOOD_GROUPS.map((g) => (
                   <div key={g} className="rounded-md border border-border p-2 text-center">
                     <div className="text-sm font-semibold text-primary">{g}</div>
-                    <div className="text-xs text-muted-foreground">{h.stock[g as keyof typeof h.stock]}</div>
+                    <div className="text-xs text-muted-foreground">{Number(stock[g]) || 0}</div>
                   </div>
                 ))}
               </div>
             </div>
           );
         })}
+        {hospitals.length === 0 && <div className="text-center py-12 text-muted-foreground">Loading hospital directory…</div>}
       </section>
     </Layout>
   );
