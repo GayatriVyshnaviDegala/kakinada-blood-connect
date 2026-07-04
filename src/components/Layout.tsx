@@ -73,9 +73,12 @@ export function Layout({ children }: { children: ReactNode }) {
               Register as Donor
             </Link>
           </div>
-          <button className="lg:hidden p-2" onClick={() => setOpen(!open)} aria-label="Menu">
-            {open ? <X /> : <Menu />}
-          </button>
+          <div className="flex items-center gap-1 lg:hidden">
+            <ThemeToggle />
+            <button className="p-2" onClick={() => setOpen(!open)} aria-label="Menu">
+              {open ? <X /> : <Menu />}
+            </button>
+          </div>
         </div>
         {open && (
           <div className="lg:hidden border-t border-border bg-white">
