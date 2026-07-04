@@ -17,6 +17,7 @@ import { Route as HospitalsRouteImport } from './routes/hospitals'
 import { Route as EmergencyRouteImport } from './routes/emergency'
 import { Route as DonorRegisterRouteImport } from './routes/donor-register'
 import { Route as DonorLoginRouteImport } from './routes/donor-login'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AwarenessRouteImport } from './routes/awareness'
 import { Route as AdminRouteImport } from './routes/admin'
@@ -63,6 +64,11 @@ const DonorLoginRoute = DonorLoginRouteImport.update({
   path: '/donor-login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -95,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/awareness': typeof AwarenessRoute
   '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRoute
   '/donor-login': typeof DonorLoginRoute
   '/donor-register': typeof DonorRegisterRoute
   '/emergency': typeof EmergencyRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/awareness': typeof AwarenessRoute
   '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRoute
   '/donor-login': typeof DonorLoginRoute
   '/donor-register': typeof DonorRegisterRoute
   '/emergency': typeof EmergencyRoute
@@ -126,6 +134,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/awareness': typeof AwarenessRoute
   '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRoute
   '/donor-login': typeof DonorLoginRoute
   '/donor-register': typeof DonorRegisterRoute
   '/emergency': typeof EmergencyRoute
@@ -143,6 +152,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/awareness'
     | '/contact'
+    | '/dashboard'
     | '/donor-login'
     | '/donor-register'
     | '/emergency'
@@ -158,6 +168,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/awareness'
     | '/contact'
+    | '/dashboard'
     | '/donor-login'
     | '/donor-register'
     | '/emergency'
@@ -173,6 +184,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/awareness'
     | '/contact'
+    | '/dashboard'
     | '/donor-login'
     | '/donor-register'
     | '/emergency'
@@ -189,6 +201,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   AwarenessRoute: typeof AwarenessRoute
   ContactRoute: typeof ContactRoute
+  DashboardRoute: typeof DashboardRoute
   DonorLoginRoute: typeof DonorLoginRoute
   DonorRegisterRoute: typeof DonorRegisterRoute
   EmergencyRoute: typeof EmergencyRoute
@@ -257,6 +270,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DonorLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -301,6 +321,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   AwarenessRoute: AwarenessRoute,
   ContactRoute: ContactRoute,
+  DashboardRoute: DashboardRoute,
   DonorLoginRoute: DonorLoginRoute,
   DonorRegisterRoute: DonorRegisterRoute,
   EmergencyRoute: EmergencyRoute,
