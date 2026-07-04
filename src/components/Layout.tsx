@@ -1,6 +1,27 @@
 import { Link } from "@tanstack/react-router";
-import { type ReactNode, useState } from "react";
-import { Droplet, Menu, X } from "lucide-react";
+import { type ReactNode, useEffect, useState } from "react";
+import { Droplet, Menu, X, Sun, Moon } from "lucide-react";
+
+function ThemeToggle() {
+  const [dark, setDark] = useState(false);
+  useEffect(() => {
+    const saved = localStorage.getItem("kbl_theme");
+    const initial = saved ? saved === "dark" : document.documentElement.classList.contains("dark");
+    setDark(initial);
+    document.documentElement.classList.toggle("dark", initial);
+  }, []);
+  function toggle() {
+    const next = !dark;
+    setDark(next);
+    document.documentElement.classList.toggle("dark", next);
+    localStorage.setItem("kbl_theme", next ? "dark" : "light");
+  }
+  return (
+    <button onClick={toggle} aria-label="Toggle theme" className="p-2 rounded-md hover:bg-secondary text-foreground/70 hover:text-primary transition">
+      {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+    </button>
+  );
+}
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -41,6 +62,7 @@ export function Layout({ children }: { children: ReactNode }) {
             ))}
           </nav>
           <div className="hidden lg:flex items-center gap-2">
+            <ThemeToggle />
             <Link to="/donor-login" className="px-3 py-2 text-sm font-medium text-primary hover:underline">
               Donor Login
             </Link>
@@ -51,9 +73,12 @@ export function Layout({ children }: { children: ReactNode }) {
               Register as Donor
             </Link>
           </div>
-          <button className="lg:hidden p-2" onClick={() => setOpen(!open)} aria-label="Menu">
-            {open ? <X /> : <Menu />}
-          </button>
+          <div className="flex items-center gap-1 lg:hidden">
+            <ThemeToggle />
+            <button className="p-2" onClick={() => setOpen(!open)} aria-label="Menu">
+              {open ? <X /> : <Menu />}
+            </button>
+          </div>
         </div>
         {open && (
           <div className="lg:hidden border-t border-border bg-white">
