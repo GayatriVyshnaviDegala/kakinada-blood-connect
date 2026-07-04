@@ -120,6 +120,18 @@ function Home() {
         </div>
       </section>
 
+      <section className="max-w-7xl mx-auto px-4 pt-8">
+        <div className="relative rounded-2xl overflow-hidden shadow-xl border border-border">
+          <img src={heroDonation} alt="Volunteers and nurses at a blood donation camp in Kakinada" width={1536} height={1024} className="w-full h-64 md:h-96 object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+          <div className="absolute bottom-0 left-0 p-6 md:p-10 text-white max-w-xl">
+            <div className="text-xs uppercase tracking-[0.2em] text-gold font-semibold">Every drop matters</div>
+            <h2 className="mt-2 font-display text-2xl md:text-4xl font-bold leading-tight">One donation from Kakinada can save up to three lives.</h2>
+          </div>
+        </div>
+      </section>
+
+
       <section className="max-w-7xl mx-auto px-4 py-20">
         <SectionHead eyebrow="What we do" title="A complete blood donor platform for Kakinada" />
         <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
