@@ -10,7 +10,7 @@ const NAV = [
   { to: "/hospitals", label: "Hospitals" },
   { to: "/awareness", label: "Awareness" },
   { to: "/contact", label: "Contact" },
-  { to: "/admin", label: "Dashboard" },
+  { to: "/dashboard", label: "Dashboard" },
 ];
 
 export function Layout({ children }: { children: ReactNode }) {
