@@ -153,21 +153,6 @@ function Home() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-20">
-        <SectionHead eyebrow="Success stories" title="Real lives saved in Kakinada" />
-        <div className="mt-10 grid md:grid-cols-3 gap-6">
-          {SUCCESS_STORIES.map((s) => (
-            <div key={s.name} className="p-6 bg-white rounded-xl border border-border relative">
-              <div className="absolute -top-3 left-6 w-8 h-8 rounded-full bg-gold text-gold-foreground grid place-items-center text-xl font-serif">"</div>
-              <p className="text-sm text-foreground/80 italic pt-2">{s.quote}</p>
-              <div className="mt-4 pt-4 border-t border-border">
-                <div className="font-semibold text-sm">{s.name}</div>
-                <div className="text-xs text-muted-foreground">{s.area}, Kakinada</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       <section className="bg-primary text-primary-foreground">
         <div className="max-w-5xl mx-auto px-4 py-16 text-center">
