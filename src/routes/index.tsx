@@ -51,7 +51,7 @@ function Home() {
 
   return (
     <Layout>
-      <section className="relative overflow-hidden bg-gradient-to-br from-background via-[#fff6f4] to-accent">
+      <section className="relative overflow-hidden bg-gradient-to-br from-background via-secondary to-accent">
         <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute -bottom-32 -left-24 w-96 h-96 rounded-full bg-gold/20 blur-3xl" />
         <div className="max-w-7xl mx-auto px-4 py-20 lg:py-28 grid lg:grid-cols-2 gap-12 items-center relative">
