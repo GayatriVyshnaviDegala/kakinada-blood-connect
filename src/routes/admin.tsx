@@ -47,7 +47,7 @@ function Admin() {
             <div>
               <div className="text-xs uppercase tracking-[0.2em] text-gold font-semibold">Admin</div>
               <h1 className="mt-1 text-3xl md:text-4xl font-bold">Kakinada Dashboard</h1>
-              <p className="text-white/70 text-sm">Live overview of donors, requests and hospitals from the Lovable Cloud database.</p>
+              <p className="text-white/70 text-sm">Live overview of donors, requests and hospitals across Kakinada.</p>
             </div>
             <div className="flex gap-2 text-xs">
               <span className="px-3 py-1.5 bg-white/10 rounded-full">Region: Kakinada</span>
