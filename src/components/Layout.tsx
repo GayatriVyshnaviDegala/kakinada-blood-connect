@@ -1,6 +1,27 @@
 import { Link } from "@tanstack/react-router";
-import { type ReactNode, useState } from "react";
-import { Droplet, Menu, X } from "lucide-react";
+import { type ReactNode, useEffect, useState } from "react";
+import { Droplet, Menu, X, Sun, Moon } from "lucide-react";
+
+function ThemeToggle() {
+  const [dark, setDark] = useState(false);
+  useEffect(() => {
+    const saved = localStorage.getItem("kbl_theme");
+    const initial = saved ? saved === "dark" : document.documentElement.classList.contains("dark");
+    setDark(initial);
+    document.documentElement.classList.toggle("dark", initial);
+  }, []);
+  function toggle() {
+    const next = !dark;
+    setDark(next);
+    document.documentElement.classList.toggle("dark", next);
+    localStorage.setItem("kbl_theme", next ? "dark" : "light");
+  }
+  return (
+    <button onClick={toggle} aria-label="Toggle theme" className="p-2 rounded-md hover:bg-secondary text-foreground/70 hover:text-primary transition">
+      {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+    </button>
+  );
+}
 
 const NAV = [
   { to: "/", label: "Home" },
