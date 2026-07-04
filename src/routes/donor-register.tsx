@@ -60,7 +60,7 @@ function DonorRegister() {
           <h1 className="mt-2 text-3xl md:text-4xl font-bold">Become a blood donor in Kakinada</h1>
           <p className="mt-2 text-muted-foreground">Takes 2 minutes. Free. You control your availability.</p>
         </div>
-        <form onSubmit={submit} className="bg-white border border-border rounded-xl p-6 md:p-8 shadow-sm grid md:grid-cols-2 gap-4">
+        <form onSubmit={submit} className="bg-card border border-border rounded-xl p-6 md:p-8 shadow-sm grid md:grid-cols-2 gap-4">
           <Field label="Full name" value={form.name} onChange={(v) => setForm({ ...form, name: v })} required />
           <Field label="Email" type="email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} required />
           <Field label="Phone (+91)" value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} required placeholder="+91 98XXXXXXXX" />
@@ -99,7 +99,7 @@ export function Select({ label, value, onChange, options, required }: { label: s
   return (
     <div>
       <label className="text-sm font-medium">{label}</label>
-      <select value={value} required={required} onChange={(e) => onChange(e.target.value)} className="mt-1 w-full border border-input rounded-md px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary/40">
+      <select value={value} required={required} onChange={(e) => onChange(e.target.value)} className="mt-1 w-full border border-input rounded-md px-3 py-2 text-sm bg-card focus:outline-none focus:ring-2 focus:ring-primary/40">
         <option value="">Select…</option>
         {options.map((o) => <option key={o} value={o}>{o}</option>)}
       </select>

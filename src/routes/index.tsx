@@ -51,12 +51,12 @@ function Home() {
 
   return (
     <Layout>
-      <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#fff6f4] to-[#fff2e6]">
+      <section className="relative overflow-hidden bg-gradient-to-br from-background via-[#fff6f4] to-accent">
         <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute -bottom-32 -left-24 w-96 h-96 rounded-full bg-gold/20 blur-3xl" />
         <div className="max-w-7xl mx-auto px-4 py-20 lg:py-28 grid lg:grid-cols-2 gap-12 items-center relative">
           <div>
-            <div className="inline-flex items-center gap-2 bg-white border border-gold/40 text-gold-foreground px-3 py-1 rounded-full text-xs font-semibold shadow-sm">
+            <div className="inline-flex items-center gap-2 bg-card border border-gold/40 text-gold-foreground px-3 py-1 rounded-full text-xs font-semibold shadow-sm">
               <Award className="w-3.5 h-3.5" /> Community Service Project · Kakinada
             </div>
             <h1 className="mt-5 text-4xl md:text-6xl font-bold leading-tight text-foreground">
@@ -70,7 +70,7 @@ function Home() {
               <Link to="/donor-register" className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-md font-semibold hover:bg-primary/90 shadow">
                 <Droplet className="w-4 h-4" fill="currentColor" /> Become a Donor
               </Link>
-              <Link to="/search-donors" className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-primary text-primary rounded-md font-semibold hover:bg-secondary">
+              <Link to="/search-donors" className="inline-flex items-center gap-2 px-6 py-3 bg-card border border-primary text-primary rounded-md font-semibold hover:bg-secondary">
                 <Search className="w-4 h-4" /> Find Blood
               </Link>
               <Link to="/emergency" className="inline-flex items-center gap-2 px-6 py-3 bg-gold text-gold-foreground rounded-md font-semibold hover:opacity-90">
@@ -85,7 +85,7 @@ function Home() {
           </div>
 
           <div className="relative">
-            <div className="bg-white rounded-2xl shadow-2xl border border-border p-6">
+            <div className="bg-card rounded-2xl shadow-2xl border border-border p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-display text-xl font-bold">Live Blood Availability</h3>
                 <span className="text-xs text-muted-foreground">Kakinada network</span>
@@ -128,7 +128,7 @@ function Home() {
             { icon: Siren, t: "Emergency Requests", d: "Post urgent needs — hospitals across Kakinada respond." },
             { icon: Activity, t: "Eligibility Checker", d: "Instant check based on WHO donation guidelines." },
           ].map((f) => (
-            <div key={f.t} className="p-6 bg-white rounded-xl border border-border hover:border-primary hover:shadow-lg transition">
+            <div key={f.t} className="p-6 bg-card rounded-xl border border-border hover:border-primary hover:shadow-lg transition">
               <div className="w-11 h-11 rounded-lg bg-primary/10 text-primary grid place-items-center mb-4">
                 <f.icon className="w-5 h-5" />
               </div>
@@ -139,12 +139,12 @@ function Home() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-br from-[#fff8f0] to-white py-20">
+      <section className="bg-gradient-to-br from-secondary to-background py-20">
         <div className="max-w-7xl mx-auto px-4">
           <SectionHead eyebrow="Kakinada coverage" title="Serving every neighbourhood of Kakinada" />
           <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
             {["Jagannaickpur", "Sarpavaram", "Ramanayyapeta", "Ashok Nagar", "Bhanugudi Junction", "Gandhi Nagar", "Indrapalem", "Vakalapudi", "Sambamurthy Nagar", "Turangi", "Suryaraopeta", "Rama Rao Peta"].map((a) => (
-              <div key={a} className="p-4 bg-white rounded-lg border border-border text-center hover:border-gold hover:shadow-md transition">
+              <div key={a} className="p-4 bg-card rounded-lg border border-border text-center hover:border-gold hover:shadow-md transition">
                 <MapPin className="w-4 h-4 mx-auto text-primary mb-2" />
                 <div className="text-sm font-medium">{a}</div>
               </div>
@@ -162,7 +162,7 @@ function Home() {
             Register today. When a patient in your area needs your blood group, we'll notify you.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Link to="/donor-register" className="px-6 py-3 bg-white text-primary rounded-md font-semibold hover:bg-gold hover:text-gold-foreground transition">Donor Registration</Link>
+            <Link to="/donor-register" className="px-6 py-3 bg-card text-primary rounded-md font-semibold hover:bg-gold hover:text-gold-foreground transition">Donor Registration</Link>
             <Link to="/recipient-register" className="px-6 py-3 bg-gold text-gold-foreground rounded-md font-semibold hover:opacity-90">Recipient Registration</Link>
           </div>
         </div>

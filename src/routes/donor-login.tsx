@@ -44,7 +44,7 @@ function LoginPage() {
           <h1 className="mt-4 text-3xl font-bold">Donor Login</h1>
           <p className="text-muted-foreground text-sm">Access your Kakinada donor account.</p>
         </div>
-        <form onSubmit={submit} className="bg-white border border-border rounded-xl p-6 shadow-sm space-y-4">
+        <form onSubmit={submit} className="bg-card border border-border rounded-xl p-6 shadow-sm space-y-4">
           <div>
             <label className="text-sm font-medium">Email</label>
             <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full border border-input rounded-md px-3 py-2 text-sm" />

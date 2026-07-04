@@ -18,7 +18,7 @@ function Hospitals() {
 
   return (
     <Layout>
-      <section className="bg-gradient-to-br from-[#fff6f4] to-white py-12">
+      <section className="bg-gradient-to-br from-secondary to-background py-12">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <div className="text-xs uppercase tracking-[0.2em] text-gold-foreground font-semibold">Kakinada network</div>
           <h1 className="mt-2 text-4xl font-bold">Partner hospitals in <span className="text-primary">Kakinada</span></h1>
@@ -30,7 +30,7 @@ function Hospitals() {
           const stock = h.stock || {};
           const total = BLOOD_GROUPS.reduce((s, g) => s + (Number(stock[g]) || 0), 0);
           return (
-            <div key={h.id} className="bg-white border border-border rounded-xl p-6">
+            <div key={h.id} className="bg-card border border-border rounded-xl p-6">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-2">

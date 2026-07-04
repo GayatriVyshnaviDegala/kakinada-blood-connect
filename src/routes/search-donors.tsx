@@ -32,14 +32,14 @@ function SearchDonors() {
 
   return (
     <Layout>
-      <section className="bg-gradient-to-br from-[#fff6f4] to-white py-12">
+      <section className="bg-gradient-to-br from-secondary to-background py-12">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center">
             <div className="text-xs uppercase tracking-[0.2em] text-gold-foreground font-semibold">Find a donor</div>
             <h1 className="mt-2 text-4xl font-bold">Search donors across <span className="text-primary">Kakinada</span></h1>
             <p className="mt-2 text-muted-foreground">Filter by blood group and locality — every donor listed is from Kakinada.</p>
           </div>
-          <div className="mt-8 bg-white p-4 md:p-6 rounded-xl border border-border shadow-sm grid md:grid-cols-4 gap-3">
+          <div className="mt-8 bg-card p-4 md:p-6 rounded-xl border border-border shadow-sm grid md:grid-cols-4 gap-3">
             <div>
               <label className="text-xs font-semibold uppercase tracking-wider">Blood Group</label>
               <select className="mt-1 w-full border border-input rounded-md px-3 py-2 text-sm" value={bg} onChange={(e) => setBg(e.target.value)}>
@@ -69,7 +69,7 @@ function SearchDonors() {
       <section className="max-w-6xl mx-auto px-4 py-10">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {donors.map((d) => (
-            <div key={d.id} className="bg-white border border-border rounded-xl p-5 hover:shadow-lg hover:border-primary transition">
+            <div key={d.id} className="bg-card border border-border rounded-xl p-5 hover:shadow-lg hover:border-primary transition">
               <div className="flex items-start justify-between">
                 <div>
                   <div className="font-semibold text-lg">{d.name}</div>

@@ -12,7 +12,7 @@ export const Route = createFileRoute("/awareness")({
 function Awareness() {
   return (
     <Layout>
-      <section className="bg-gradient-to-br from-[#fff6f4] to-white py-14">
+      <section className="bg-gradient-to-br from-secondary to-background py-14">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <div className="text-xs uppercase tracking-[0.2em] text-gold-foreground font-semibold">Awareness</div>
           <h1 className="mt-2 text-4xl md:text-5xl font-bold">Know before you <span className="text-primary">donate</span></h1>
@@ -26,7 +26,7 @@ function Awareness() {
           { t: "Only 1% donate", d: "Less than 1% of India's population donates blood voluntarily. Kakinada can do better." },
           { t: "38,000 donations/day", d: "India needs about 38,000 donations every day for surgery, trauma & thalassemia patients." },
         ].map((f) => (
-          <div key={f.t} className="p-6 bg-white border border-border rounded-xl">
+          <div key={f.t} className="p-6 bg-card border border-border rounded-xl">
             <Sparkles className="w-5 h-5 text-gold mb-3" />
             <div className="font-bold text-lg">{f.t}</div>
             <p className="text-sm text-muted-foreground mt-1">{f.d}</p>
@@ -49,7 +49,7 @@ function Awareness() {
 function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="bg-white border border-border rounded-xl">
+    <div className="bg-card border border-border rounded-xl">
       <button onClick={() => setOpen(!open)} className="w-full flex items-center justify-between p-5 text-left">
         <span className="font-semibold">{q}</span>
         <ChevronDown className={"w-5 h-5 transition " + (open ? "rotate-180 text-primary" : "text-muted-foreground")} />
@@ -80,12 +80,12 @@ function EligibilityChecker() {
           <h2 className="mt-2 text-3xl font-bold">Eligibility Checker</h2>
           <p className="text-muted-foreground">Answer 5 quick questions.</p>
         </div>
-        <form onSubmit={check} className="mt-8 bg-white border border-border rounded-xl p-6 grid md:grid-cols-2 gap-4">
+        <form onSubmit={check} className="mt-8 bg-card border border-border rounded-xl p-6 grid md:grid-cols-2 gap-4">
           <label className="text-sm">Age<input type="number" required value={f.age} onChange={(e) => setF({ ...f, age: e.target.value })} className="mt-1 w-full border border-input rounded-md px-3 py-2" /></label>
           <label className="text-sm">Weight (kg)<input type="number" required value={f.weight} onChange={(e) => setF({ ...f, weight: e.target.value })} className="mt-1 w-full border border-input rounded-md px-3 py-2" /></label>
-          <label className="text-sm">In good health?<select required value={f.healthy} onChange={(e) => setF({ ...f, healthy: e.target.value })} className="mt-1 w-full border border-input rounded-md px-3 py-2 bg-white"><option value="">Select</option><option value="yes">Yes</option><option value="no">No</option></select></label>
-          <label className="text-sm">Donated in last 3 months?<select required value={f.recent} onChange={(e) => setF({ ...f, recent: e.target.value })} className="mt-1 w-full border border-input rounded-md px-3 py-2 bg-white"><option value="">Select</option><option value="no">No</option><option value="yes">Yes</option></select></label>
-          <label className="text-sm md:col-span-2">Tattoo/piercing in last 6 months?<select required value={f.tattoo} onChange={(e) => setF({ ...f, tattoo: e.target.value })} className="mt-1 w-full border border-input rounded-md px-3 py-2 bg-white"><option value="">Select</option><option value="no">No</option><option value="yes">Yes</option></select></label>
+          <label className="text-sm">In good health?<select required value={f.healthy} onChange={(e) => setF({ ...f, healthy: e.target.value })} className="mt-1 w-full border border-input rounded-md px-3 py-2 bg-card"><option value="">Select</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+          <label className="text-sm">Donated in last 3 months?<select required value={f.recent} onChange={(e) => setF({ ...f, recent: e.target.value })} className="mt-1 w-full border border-input rounded-md px-3 py-2 bg-card"><option value="">Select</option><option value="no">No</option><option value="yes">Yes</option></select></label>
+          <label className="text-sm md:col-span-2">Tattoo/piercing in last 6 months?<select required value={f.tattoo} onChange={(e) => setF({ ...f, tattoo: e.target.value })} className="mt-1 w-full border border-input rounded-md px-3 py-2 bg-card"><option value="">Select</option><option value="no">No</option><option value="yes">Yes</option></select></label>
           <button className="md:col-span-2 py-3 bg-primary text-primary-foreground rounded-md font-semibold">Check Eligibility</button>
           {result && (
             <div className={"md:col-span-2 p-4 rounded-md flex items-start gap-2 text-sm " + (result.ok ? "bg-green-50 text-green-800 border border-green-200" : "bg-primary/5 text-primary border border-primary/20")}>
