@@ -73,7 +73,7 @@ function Emergency() {
       </section>
 
       <section className="max-w-6xl mx-auto px-4 py-12 grid lg:grid-cols-5 gap-8">
-        <form onSubmit={submit} className="lg:col-span-2 bg-white border border-border rounded-xl p-6 shadow-sm space-y-4 h-fit">
+        <form onSubmit={submit} className="lg:col-span-2 bg-card border border-border rounded-xl p-6 shadow-sm space-y-4 h-fit">
           <h2 className="font-bold text-xl">Raise a request</h2>
           <Field label="Patient name" value={f.patient} onChange={(v) => setF({ ...f, patient: v })} required />
           <div className="grid grid-cols-2 gap-3">
@@ -98,7 +98,7 @@ function Emergency() {
           <h2 className="font-bold text-xl mb-4">Active requests in Kakinada</h2>
           <div className="space-y-3">
             {requests.map((r) => (
-              <div key={r.id} className="bg-white border border-border rounded-xl p-5 flex flex-col md:flex-row md:items-center gap-4">
+              <div key={r.id} className="bg-card border border-border rounded-xl p-5 flex flex-col md:flex-row md:items-center gap-4">
                 <div className="w-14 h-14 rounded-lg bg-primary text-primary-foreground grid place-items-center text-xl font-bold shrink-0">{r.blood_group}</div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 flex-wrap">

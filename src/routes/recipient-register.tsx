@@ -65,7 +65,7 @@ function RecipientRegister() {
           <h1 className="mt-2 text-3xl md:text-4xl font-bold">Recipient Registration</h1>
           <p className="mt-2 text-muted-foreground">Register to request donors from Kakinada's network.</p>
         </div>
-        <form onSubmit={submit} className="bg-white border border-border rounded-xl p-6 md:p-8 grid md:grid-cols-2 gap-4">
+        <form onSubmit={submit} className="bg-card border border-border rounded-xl p-6 md:p-8 grid md:grid-cols-2 gap-4">
           <Field label="Full name" value={f.name} onChange={(v) => setF({ ...f, name: v })} required />
           <Field label="Email" type="email" value={f.email} onChange={(v) => setF({ ...f, email: v })} required />
           <Field label="Phone (+91)" value={f.phone} onChange={(v) => setF({ ...f, phone: v })} required />

@@ -15,7 +15,7 @@ export const Route = createFileRoute("/about")({
 function About() {
   return (
     <Layout>
-      <section className="bg-gradient-to-br from-[#fff6f4] to-white py-16">
+      <section className="bg-gradient-to-br from-secondary to-background py-16">
         <div className="max-w-5xl mx-auto px-4 text-center">
           <div className="text-xs uppercase tracking-[0.2em] text-gold-foreground font-semibold">About the project</div>
           <h1 className="mt-3 text-4xl md:text-5xl font-bold">Blood Donor Management System<br /><span className="text-primary">for Kakinada</span></h1>
@@ -42,7 +42,7 @@ function About() {
             { i: ShieldCheck, t: "Verified data", d: "Donor eligibility & contact are checked." },
             { i: GraduationCap, t: "Student-led CSP", d: "Built as a 3rd year B.Tech CSE project." },
           ].map((c) => (
-            <div key={c.t} className="p-5 bg-white rounded-xl border border-border">
+            <div key={c.t} className="p-5 bg-card rounded-xl border border-border">
               <c.i className="w-6 h-6 text-primary mb-2" />
               <div className="font-semibold">{c.t}</div>
               <p className="text-sm text-muted-foreground mt-1">{c.d}</p>
@@ -60,7 +60,7 @@ function About() {
               { n: "02", t: "Get matched", d: "When a patient in your locality needs your group, we alert you." },
               { n: "03", t: "Donate & save", d: "Visit the nearest Kakinada hospital and complete the donation." },
             ].map((s) => (
-              <div key={s.n} className="bg-white p-6 rounded-xl border border-border">
+              <div key={s.n} className="bg-card p-6 rounded-xl border border-border">
                 <div className="text-4xl font-display text-gold font-bold">{s.n}</div>
                 <div className="mt-2 font-semibold text-lg">{s.t}</div>
                 <p className="text-sm text-muted-foreground mt-1">{s.d}</p>
@@ -78,7 +78,7 @@ function About() {
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2 text-sm">
           {["HTML", "CSS", "JavaScript", "Bootstrap-style UI", "Java Spring Boot", "MySQL", "REST API"].map((t) => (
-            <span key={t} className="px-3 py-1.5 bg-white border border-border rounded-full">{t}</span>
+            <span key={t} className="px-3 py-1.5 bg-card border border-border rounded-full">{t}</span>
           ))}
         </div>
       </section>

@@ -50,7 +50,7 @@ function Admin() {
               <p className="text-white/70 text-sm">Live overview of donors, requests and hospitals across Kakinada.</p>
             </div>
             <div className="flex gap-2 text-xs">
-              <span className="px-3 py-1.5 bg-white/10 rounded-full">Region: Kakinada</span>
+              <span className="px-3 py-1.5 bg-card/10 rounded-full">Region: Kakinada</span>
               <span className="px-3 py-1.5 bg-gold/20 text-gold rounded-full">{loading ? "Loading…" : "Live"}</span>
             </div>
           </div>
@@ -130,7 +130,7 @@ function Admin() {
 function KPI({ icon: Icon, label, value, tint }: any) {
   const t = tint === "green" ? "text-green-700 bg-green-50" : tint === "gold" ? "text-gold-foreground bg-gold/20" : "text-primary bg-primary/10";
   return (
-    <div className="bg-white rounded-xl border border-border p-5 shadow-sm">
+    <div className="bg-card rounded-xl border border-border p-5 shadow-sm">
       <div className={"w-10 h-10 rounded-lg grid place-items-center " + t}><Icon className="w-5 h-5" /></div>
       <div className="mt-3 text-3xl font-bold font-display">{value}</div>
       <div className="text-xs uppercase tracking-wider text-muted-foreground">{label}</div>
@@ -139,7 +139,7 @@ function KPI({ icon: Icon, label, value, tint }: any) {
 }
 function Card({ title, children, className = "" }: any) {
   return (
-    <div className={"bg-white border border-border rounded-xl p-5 " + className}>
+    <div className={"bg-card border border-border rounded-xl p-5 " + className}>
       <h3 className="font-bold mb-4">{title}</h3>
       {children}
     </div>
