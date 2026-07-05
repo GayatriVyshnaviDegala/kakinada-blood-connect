@@ -83,8 +83,8 @@ function Dashboard() {
   }, []);
 
   const tooltipStyle = {
-    background: "hsl(var(--card))",
-    border: "1px solid hsl(var(--border))",
+    background: "var(--card)",
+    border: "1px solid var(--border)",
     borderRadius: 8,
     fontSize: 12,
   };
@@ -112,9 +112,9 @@ function Dashboard() {
           <ChartCard title="Donor Registrations" sub="Monthly trend · this year">
             <ResponsiveContainer width="100%" height={280}>
               <LineChart data={monthly} margin={{ top: 10, right: 16, left: -12, bottom: 0 }}>
-                <CartesianGrid stroke="hsl(var(--border))" strokeDasharray="3 3" vertical={false} />
-                <XAxis dataKey="m" stroke="hsl(var(--muted-foreground))" fontSize={11} tickLine={false} axisLine={false} />
-                <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} tickLine={false} axisLine={false} allowDecimals={false} />
+                <CartesianGrid stroke="var(--border)" strokeDasharray="3 3" vertical={false} />
+                <XAxis dataKey="m" stroke="var(--muted-foreground)" fontSize={11} tickLine={false} axisLine={false} />
+                <YAxis stroke="var(--muted-foreground)" fontSize={11} tickLine={false} axisLine={false} allowDecimals={false} />
                 <Tooltip contentStyle={tooltipStyle} />
                 <Line type="monotone" dataKey="n" name="Donors" stroke="#dc2626" strokeWidth={2.5} dot={{ r: 3, fill: "#dc2626" }} activeDot={{ r: 5 }} />
               </LineChart>
@@ -124,7 +124,7 @@ function Dashboard() {
           <ChartCard title="Blood Group Distribution" sub="Share of registered donors">
             <ResponsiveContainer width="100%" height={280}>
               <PieChart>
-                <Pie data={groups} dataKey="value" nameKey="name" innerRadius={60} outerRadius={100} paddingAngle={2} stroke="hsl(var(--card))" strokeWidth={2}>
+                <Pie data={groups} dataKey="value" nameKey="name" innerRadius={60} outerRadius={100} paddingAngle={2} stroke="var(--card)" strokeWidth={2}>
                   {groups.map((_, i) => <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />)}
                 </Pie>
                 <Tooltip contentStyle={tooltipStyle} />
@@ -136,10 +136,10 @@ function Dashboard() {
           <ChartCard title="Hospital Blood Stock" sub="Total units available by group" className="lg:col-span-2">
             <ResponsiveContainer width="100%" height={320}>
               <BarChart data={stock} margin={{ top: 10, right: 16, left: -12, bottom: 0 }} barCategoryGap="25%">
-                <CartesianGrid stroke="hsl(var(--border))" strokeDasharray="3 3" vertical={false} />
-                <XAxis dataKey="g" stroke="hsl(var(--muted-foreground))" fontSize={11} tickLine={false} axisLine={false} />
-                <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} tickLine={false} axisLine={false} allowDecimals={false} />
-                <Tooltip contentStyle={tooltipStyle} cursor={{ fill: "hsl(var(--muted) / 0.4)" }} />
+                <CartesianGrid stroke="var(--border)" strokeDasharray="3 3" vertical={false} />
+                <XAxis dataKey="g" stroke="var(--muted-foreground)" fontSize={11} tickLine={false} axisLine={false} />
+                <YAxis stroke="var(--muted-foreground)" fontSize={11} tickLine={false} axisLine={false} allowDecimals={false} />
+                <Tooltip contentStyle={tooltipStyle} cursor={{ fill: "color-mix(in oklab, var(--muted) 40%, transparent)" }} />
                 <Bar dataKey="units" name="Units" fill="#dc2626" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
